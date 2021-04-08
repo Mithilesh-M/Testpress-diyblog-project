@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from .models import Blog, Blogger, Comment
 from django.views import generic
+from django.contrib.auth.decorators import login_required, permission_required
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .forms import CommentForm
 
 
 def index(request):
@@ -39,3 +44,28 @@ class BlogDetailView(generic.DetailView):
 
 class BloggerDetailView(generic.DetailView):
     model = Blogger
+
+
+@login_required
+@permission_required('catalog.can_mark_returned', raise_exception=True)
+def Comment_blog(request, pk):
+    """View function for commenting a specific blog."""
+
+    blog = get_object_or_404(Blog, pk=pk)
+    if request.method == 'POST':
+
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            blog.comment_set.create(description=form.cleaned_data['description'])
+            return HttpResponseRedirect(reverse('blog-detail', args=(blog.id,) ))
+
+    else:
+        form = CommentForm(initial={'description': ""})
+
+    context = {
+        'form': form,
+        'blog': blog,
+    }
+
+    return render(request, 'blog/comment_form.html', context)
