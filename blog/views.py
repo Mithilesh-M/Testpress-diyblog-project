@@ -38,4 +38,4 @@ class BlogDetailView(generic.DetailView):
 
 
 class BloggerDetailView(generic.DetailView):
-    model = Blog
+    model = Blogger
