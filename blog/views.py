@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Blog, Blogger, Comment
-
+from django.views import generic
 
 
 def index(request):
@@ -22,3 +22,8 @@ def index(request):
 
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
+
+
+class BlogListView(generic.ListView):
+    model = Blog
+    paginate_by = 5
