@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import CommentForm, CreatePostForm, CreateBloggerForm, UpdateBloggerForm
+from .forms import CommentForm, CreatePostForm, CreateBloggerForm, UpdateBloggerForm, UpdatePostForm
 
 
 def index(request):
@@ -182,3 +182,36 @@ def BloggerUpdate(request, pk):
     }
 
     return render(request, 'blog/update_blogger.html', context)
+
+
+@login_required
+@permission_required('catalog.can_mark_returned', raise_exception=True)
+def PostUpdate(request, pk):
+    """View function for updating Post."""
+    blog = get_object_or_404(Blog, pk=pk)
+
+    if request.method == 'POST':
+
+        form = UpdatePostForm(request.POST)
+
+        if form.is_valid():
+            blog.title = form.cleaned_data['title']
+            blog.blogger = form.cleaned_data['blogger']
+            blog.description = form.cleaned_data['description']
+            blog.post_date = form.cleaned_data['post_date']
+            blog.save()
+            return HttpResponseRedirect(reverse('blogs'))
+
+    else:
+        blog_original_title = blog.title
+        blog_original_blogger = blog.blogger
+        blog_original_post_date = blog.post_date
+        blog_original_description = blog.description
+        form = UpdatePostForm(initial={'title': blog_original_title,'blogger':blog_original_blogger,'post_date':blog_original_post_date,'description':blog_original_description})
+
+    context = {
+        'form': form,
+        'blog': blog,
+    }
+
+    return render(request, 'blog/update_blog.html', context)
