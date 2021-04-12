@@ -3,3 +3,14 @@
     padding: 0;
     list-style: none;
 }
+.mysidebar{
+    background-color: rgb(105, 105, 105);
+}
+.mypage{
+    background-color: rgb(119, 136, 153);
+}
+.title{
+    text-align: center;
+    background-color: black;
+    color: blanchedalmond;
+}
