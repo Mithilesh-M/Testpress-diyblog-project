@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import CommentForm, CreatePostForm, CreateBloggerForm
+from .forms import CommentForm, CreatePostForm, CreateBloggerForm, UpdateBloggerForm
 
 
 def index(request):
@@ -153,3 +153,32 @@ def BloggerDelete(request, pk):
     }
 
     return render(request, 'blog/delete_blogger.html', context)
+
+
+@login_required
+@permission_required('catalog.can_mark_returned', raise_exception=True)
+def BloggerUpdate(request, pk):
+    """View function for updating city."""
+    blogger = get_object_or_404(Blogger, pk=pk)
+
+    if request.method == 'POST':
+
+        form = UpdateBloggerForm(request.POST)
+
+        if form.is_valid():
+            blogger.name = form.cleaned_data['name']
+            blogger.bio = form.cleaned_data['bio']
+            blogger.save()
+            return HttpResponseRedirect(reverse('bloggers'))
+
+    else:
+        blogger_original_name = blogger.name
+        blogger_original_bio = blogger.bio
+        form = UpdateBloggerForm(initial={'name': blogger_original_name,'bio':blogger_original_bio})
+
+    context = {
+        'form': form,
+        'blogger': blogger,
+    }
+
+    return render(request, 'blog/update_blogger.html', context)

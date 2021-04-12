@@ -12,4 +12,5 @@ urlpatterns = [
     path('blog/<int:pk>/delete', views.PostDelete, name='post-delete'),
     path('blogger/<int:pk>/delete', views.BloggerDelete, name='blogger-delete'),
     path('blogger/create/', views.CreateBlogger, name='create-blogger'),
+    path('blogger/<int:pk>/update', views.BloggerUpdate, name='blogger-update'),
 ]

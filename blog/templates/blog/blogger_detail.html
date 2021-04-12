@@ -4,6 +4,8 @@
   <h1>Blogger : {{ blogger.name }}</h1>
 <br>
   <h4><a href="{% url 'blogger-delete' blogger.id %}">Delete Blogger</a></h4>
+  <h4><a href="{% url 'blogger-update' blogger.id %}">Update Blogger</a></h4>
+
   <br>
 
   <p><strong>Bio : </strong>{{ blogger.bio }}</p>

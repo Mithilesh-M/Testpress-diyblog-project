@@ -37,3 +37,12 @@ class CreateBloggerForm(forms.Form):
     def clean_renewal_date(self):
         data = self.cleaned_data['name']
         return data
+
+class UpdateBloggerForm(forms.Form):
+    name = forms.CharField(max_length=200, help_text="Enter the name of the blogger")
+    bio = forms.CharField(max_length=500, help_text="Enter the bio")
+
+    def clean_renewal_date(self):
+        data = self.cleaned_data['name']
+        return data
+
