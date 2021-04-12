@@ -1,7 +1,8 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Blog List</h1>
+  <h1>Post List</h1>
+  <h4><a href="{% url 'create-blog' %}">Create Post</a></h4>
   {% if blog_list %}
   <ul>
     {% for blog in blog_list %}

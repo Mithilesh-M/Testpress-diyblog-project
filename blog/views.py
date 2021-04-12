@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import CommentForm
+from .forms import CommentForm, CreatePostForm
 
 
 def index(request):
@@ -69,3 +69,27 @@ def Comment_blog(request, pk):
     }
 
     return render(request, 'blog/comment_form.html', context)
+
+@login_required
+@permission_required('catalog.can_mark_returned', raise_exception=True)
+def CreateBlog(request):
+    """View function for Creating Post."""
+
+    if request.method == 'POST':
+
+        form = CreatePostForm(request.POST)
+
+        if form.is_valid():
+            city = Blog(title=form.cleaned_data['title'],post_date=form.cleaned_data['post_date'],blogger=form.cleaned_data['blogger'],description=form.cleaned_data['description'])
+            city.save()
+
+            return HttpResponseRedirect(reverse('blogs'))
+
+    else:
+        form = CreatePostForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'blog/create_blog.html', context)
