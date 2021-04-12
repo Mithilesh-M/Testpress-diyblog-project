@@ -3,8 +3,8 @@
 {% block content %}
   <h1>Blogger : {{ blogger.name }}</h1>
 <br>
-  <h4><a href="{% url 'blogger-delete' blogger.id %}">Delete Blogger</a></h4>
-  <h4><a href="{% url 'blogger-update' blogger.id %}">Update Blogger</a></h4>
+  <h4><button><a href="{% url 'blogger-delete' blogger.id %}">Delete Blogger</a></button></h4>
+  <h4><button><a href="{% url 'blogger-update' blogger.id %}">Update Blogger</a></button></h4>
 
   <br>
 
