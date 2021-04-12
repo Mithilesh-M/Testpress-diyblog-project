@@ -136,6 +136,9 @@ def PostDelete(request, pk):
 
     return render(request, 'blog/delete_post.html', context)
 
+
+@login_required
+@permission_required('catalog.can_mark_returned', raise_exception=True)
 def BloggerDelete(request, pk):
     """View function for deleting the place."""
     blogger = get_object_or_404(Blogger, pk=pk)
