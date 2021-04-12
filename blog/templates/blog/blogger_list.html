@@ -2,6 +2,7 @@
 
 {% block content %}
   <h1>Blogger List</h1>
+  <h4><a href="{% url 'create-blogger' %}">Create Blogger</a></h4>
   {% if blogger_list %}
   <ul>
     {% for blogger in blogger_list %}

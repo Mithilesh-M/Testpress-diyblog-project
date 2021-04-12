@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import CommentForm, CreatePostForm
+from .forms import CommentForm, CreatePostForm, CreateBloggerForm
 
 
 def index(request):
@@ -80,8 +80,8 @@ def CreateBlog(request):
         form = CreatePostForm(request.POST)
 
         if form.is_valid():
-            city = Blog(title=form.cleaned_data['title'],post_date=form.cleaned_data['post_date'],blogger=form.cleaned_data['blogger'],description=form.cleaned_data['description'])
-            city.save()
+            blog = Blog(title=form.cleaned_data['title'],post_date=form.cleaned_data['post_date'],blogger=form.cleaned_data['blogger'],description=form.cleaned_data['description'])
+            blog.save()
 
             return HttpResponseRedirect(reverse('blogs'))
 
@@ -93,3 +93,28 @@ def CreateBlog(request):
     }
 
     return render(request, 'blog/create_blog.html', context)
+
+
+@login_required
+@permission_required('catalog.can_mark_returned', raise_exception=True)
+def CreateBlogger(request):
+    """View function for Creating Blogger."""
+
+    if request.method == 'POST':
+
+        form = CreateBloggerForm(request.POST)
+
+        if form.is_valid():
+            blogger = Blogger(name=form.cleaned_data['name'],bio=form.cleaned_data['bio'])
+            blogger.save()
+
+            return HttpResponseRedirect(reverse('bloggers'))
+
+    else:
+        form = CreateBloggerForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'blog/create_blogger.html', context)
