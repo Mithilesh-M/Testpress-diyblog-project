@@ -28,26 +28,15 @@ class CreatePostForm(forms.Form):
     blogger = forms.ModelChoiceField(queryset=Blogger.objects.all(),help_text="Choose the Blogger")
     description = forms.CharField(max_length=500, help_text="Enter the description")
 
-    def clean_renewal_date(self):
-        data = self.cleaned_data['name']
-        return data
 
 class CreateBloggerForm(forms.Form):
     name = forms.CharField(max_length=200, help_text="Enter the name of blogger")
     bio = forms.CharField(max_length=500, help_text="Enter the bio of the Blogger")
 
-    def clean_renewal_date(self):
-        data = self.cleaned_data['name']
-        return data
-
 
 class UpdateBloggerForm(forms.Form):
     name = forms.CharField(max_length=200, help_text="Enter the name of the blogger")
     bio = forms.CharField(max_length=500, help_text="Enter the bio")
-
-    def clean_renewal_date(self):
-        data = self.cleaned_data['name']
-        return data
 
 
 class UpdatePostForm(forms.Form):
@@ -55,7 +44,3 @@ class UpdatePostForm(forms.Form):
     post_date = forms.DateField(help_text="Enter the date in this format MM/DD/YYYY")
     blogger = forms.ModelChoiceField(queryset=Blogger.objects.all(), help_text="Choose the Blogger")
     description = forms.CharField(max_length=500, help_text="Enter the description")
-
-    def clean_renewal_date(self):
-        data = self.cleaned_data['name']
-        return data
