@@ -2,7 +2,9 @@
 
 {% block content %}
   <h1>Title: {{ blog.title }}</h1>
-
+<br>
+  <h4><a href="{% url 'post-delete' blog.id %}">Delete Post</a></h4>
+  <br>
   <p><strong>Post Date : </strong>{{ blog.post_date }}</p>
   <p><strong>Author:</strong> <a href="{{ blog.blogger.get_absolute_url }}">{{ blog.blogger.name }}</a></p>
   <p><strong>Description:</strong> {{ blog.description }}</p>

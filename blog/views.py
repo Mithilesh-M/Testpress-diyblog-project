@@ -118,3 +118,20 @@ def CreateBlogger(request):
     }
 
     return render(request, 'blog/create_blogger.html', context)
+
+@login_required
+@permission_required('catalog.can_mark_returned', raise_exception=True)
+def PostDelete(request, pk):
+    """View function for deleting the place."""
+    post = get_object_or_404(Blog, pk=pk)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+        post.delete()
+        return HttpResponseRedirect(reverse('blogs'))
+
+    context = {
+        'post': post,
+    }
+
+    return render(request, 'blog/delete_post.html', context)
