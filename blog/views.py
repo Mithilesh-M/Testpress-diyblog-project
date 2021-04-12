@@ -135,3 +135,18 @@ def PostDelete(request, pk):
     }
 
     return render(request, 'blog/delete_post.html', context)
+
+def BloggerDelete(request, pk):
+    """View function for deleting the place."""
+    blogger = get_object_or_404(Blogger, pk=pk)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+        blogger.delete()
+        return HttpResponseRedirect(reverse('bloggers'))
+
+    context = {
+        'blogger': blogger,
+    }
+
+    return render(request, 'blog/delete_blogger.html', context)
