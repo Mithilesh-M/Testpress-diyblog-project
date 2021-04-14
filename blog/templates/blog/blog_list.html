@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>Post List</h1>
-  <h4><button><a href="{% url 'create-blog' %}">Create Post</a></button></h4>
+  <h4><button class="mybutton"><a href="{% url 'create-blog' %}">Create Post</a></button></h4>
   {% if blog_list %}
   <ul>
     {% for blog in blog_list %}

@@ -1,3 +1,9 @@
+a{
+    text-decoration: none !important;
+}
+a:hover{
+    color: lightcoral;
+}
 .sidebar-nav {
     margin-top: 20px;
     padding: 0;
@@ -5,6 +11,15 @@
 }
 .mysidebar{
     background-color: rgb(105, 105, 105);
+    font-family: serif;
+    font-weight: bolder;
+    font-size: larger;
+}
+.mysidebar-menu{
+    font-family: serif;
+    font-weight: bolder;
+    font-size: larger;
+    color: lightyellow;
 }
 .mypage{
     background-color: rgb(119, 136, 153);
@@ -13,4 +28,22 @@
     text-align: center;
     background-color: black;
     color: blanchedalmond;
+    font-family: serif;
+    font-weight: bolder;
+    font-size: 400%;
+}
+.mybutton{
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size: larger;
+    color: lightyellow;
+    text-decoration: none;
+    border: 2px solid blue;
+}
+.mybutton:hover {background-color:burlywood}
+.mylist-ele{
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size: larger;
+    color:floralwhite;
 }
